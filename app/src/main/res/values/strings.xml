@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">News App</string>
+    <string name="action_settings">settings</string>
+    <string name="no_connection">There\'s no Internet connection available</string>
+    <string name="settings_title">settings</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_value</string>
+
+    <!-- Strings for order-by older option -->
+    <string name="settings_order_by_older_label">Older</string>
+    <string name="settings_order_by_older_value" translatable="false">older</string>
+
+    <!-- Strings for order-by newest option -->
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <!-- Strings for order-by relevance option -->
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+    <string name="settings_page_size_default">10</string>
+    <string name="settings_page_size_key">page_size</string>
+    <string name="settings_page_size_label">Page size</string>
+    <string name="settings_section_default" />
+    <string name="settings_section_key">section</string>
+    <string name="settings_section_label">Section</string>
+    <string name="search_title">Search</string>
+</resources>
