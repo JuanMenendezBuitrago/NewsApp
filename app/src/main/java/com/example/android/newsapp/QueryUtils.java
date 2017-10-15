@@ -18,6 +18,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import static android.R.attr.author;
+
 
 /**
  * QueryUtils holds static methods that are used to make API queries and process the result.
@@ -77,7 +79,7 @@ public final class QueryUtils {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod(getStringResource(R.string.http_method_get));
             urlConnection.connect();
 
             // If the request was successful (response code 200),
@@ -87,7 +89,7 @@ public final class QueryUtils {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
-                throw new IOException("There's been an error fetching the news data");
+                throw new IOException(getStringResource(R.string.error_fetching_data));
             }
         } finally {
             if (urlConnection != null) urlConnection.disconnect();
@@ -108,7 +110,7 @@ public final class QueryUtils {
         // compose string
         if (inputStream != null) {
             // instantiate stream reader for utf-8 charset
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("utf-8"));
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName(getStringResource(R.string.charset_utf_8)));
             // instantiate buffered reader from stream reader
             BufferedReader reader = new BufferedReader(inputStreamReader);
 
@@ -131,38 +133,51 @@ public final class QueryUtils {
         // Create an empty ArrayList that we can start adding books to
         ArrayList<PieceOfNews> news = new ArrayList<>();
 
-        JSONObject reader = new JSONObject(resultJSON).getJSONObject("response");
-        if (Integer.valueOf(reader.getInt("total")) == 0) {
+        JSONObject reader = new JSONObject(resultJSON).getJSONObject(getStringResource(R.string.json_object_response));
+        if (Integer.valueOf(reader.getInt(getStringResource(R.string.json_int_total))) == 0) {
             return null;
         }
 
         ArrayMap<String, Integer> metaData = new ArrayMap<>();
-        metaData.put("total", reader.getInt("total"));
-        metaData.put("startIndex", reader.getInt("startIndex"));
-        metaData.put("pageSize", reader.getInt("pageSize"));
-        metaData.put("currentPage", reader.getInt("currentPage"));
-        metaData.put("pages", reader.getInt("pages"));
+        metaData.put(
+                getStringResource(R.string.json_int_total),
+                reader.getInt(getStringResource(R.string.json_int_total)));
+        metaData.put(
+                getStringResource(R.string.json_int_index),
+                reader.getInt(getStringResource(R.string.json_int_index)));
+        metaData.put(
+                getStringResource(R.string.json_int_page_size),
+                reader.getInt(getStringResource(R.string.json_int_page_size)));
+        metaData.put(
+                getStringResource(R.string.json_int_current_page),
+                reader.getInt(getStringResource(R.string.json_int_current_page)));
+        metaData.put(
+                getStringResource(R.string.json_int_pages),
+                reader.getInt(getStringResource(R.string.json_int_pages)));
 
-        JSONArray newsJSON = reader.getJSONArray("results");
+        JSONArray newsJSON = reader.getJSONArray(getStringResource(R.string.json_array_results));
         for (int i=0; i<newsJSON.length(); i++) {
             // grab the book JSON object
             JSONObject pieceOfNews = newsJSON.getJSONObject(i);
 
             // get id
-            String id = pieceOfNews.getString("id");
+            String id = pieceOfNews.getString(getStringResource(R.string.piece_of_news_id));
             // get title
-            String title = pieceOfNews.getString("webTitle");
+            String title = pieceOfNews.getString(getStringResource(R.string.piece_of_news_web_title));
             // get link URL
-            String url = pieceOfNews.getString("webUrl");
+            String url = pieceOfNews.getString(getStringResource(R.string.piece_of_news_web_url));
             // get date
-            String date = pieceOfNews.getString("webPublicationDate");
+            String date = pieceOfNews.getString(getStringResource(R.string.piece_of_news_web_publication_date));
             // get section
-            String sectionName = pieceOfNews.getString("sectionName");
+            String sectionName = pieceOfNews.getString(getStringResource(R.string.piece_of_news_section_name));
             // get section id
-            String sectionId = pieceOfNews.getString("sectionId");
+            String sectionId = pieceOfNews.getString(getStringResource(R.string.piece_of_news_section_id));
+
+            // get author
+            String authorFullName = composeAuthor(pieceOfNews);
 
             // finally, add the book object to the list
-            news.add(new PieceOfNews(id, title, date, url, sectionName, sectionId));
+            news.add(new PieceOfNews(id, title, authorFullName, date, url, sectionName, sectionId));
         }
 
         NewsChunk chunk = new NewsChunk(metaData, news);
@@ -171,4 +186,17 @@ public final class QueryUtils {
         return chunk;
     }
 
+    private static String composeAuthor(JSONObject pieceOfNews) throws JSONException {
+        String authorFullName = "";
+        JSONObject author = pieceOfNews.getJSONArray(getStringResource(R.string.piece_of_news_tags)).optJSONObject(0);
+        if (author != null) {
+            authorFullName = author.getString(getStringResource(R.string.piece_of_news_first_name)) + " " + author.getString(getStringResource(R.string.piece_of_news_last_name));
+            authorFullName = authorFullName.trim();
+        }
+        return authorFullName;
+    }
+
+    public static String getStringResource(int resourceId) {
+        return NewsApp.getAppContext().getResources().getString(resourceId);
+    }
 }

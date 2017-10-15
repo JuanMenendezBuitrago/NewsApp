@@ -26,5 +26,47 @@
     <string name="settings_section_default" />
     <string name="settings_section_key">section</string>
     <string name="settings_section_label">Section</string>
+
+    <!-- search box -->
     <string name="search_title">Search</string>
+    <string name="search_hint">search...</string>
+    <string name="empty_string" />
+    <string name="empty_query">Please give me something to search</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="no_more_news">No more news</string>
+    <string name="no_news_found">No news found</string>
+    <string name="JSON_parse_error">parse error</string>
+    <string name="date_section_connector">in</string>
+    <string name="API_URL">https://content.guardianapis.com/search</string>
+    <string name="API_key">b09ba2b4-a362-416b-afb1-b0c316045fc2</string>
+    <string name="item_clicked_unknown">User clicked something that wasn\'t recognized</string>
+    <string name="date_format">yyyy-MM-dd</string>
+    <string name="query_string_api_key">api-key</string>
+    <string name="query_string_show_tags">show-tags</string>
+    <string name="query_string_page">page</string>
+    <string name="query_string_page_size">page-size</string>
+    <string name="query_string_order_by">order-by</string>
+    <string name="query_string_section">section</string>
+    <string name="query_string_search_terms">q</string>
+    <string name="API_date_format">yyyy-MM-dd\'T\'HH:mm:ss\'Z\'</string>
+    <string name="gmt_timezone">GMT</string>
+    <string name="http_method_get">GET</string>
+    <string name="error_fetching_data">There\'s been an error fetching the news data</string>
+    <string name="json_object_response">response</string>
+    <string name="json_int_total">total</string>
+    <string name="json_int_index">startIndex</string>
+    <string name="json_int_page_size">pageSize</string>
+    <string name="json_int_current_page">currentPage</string>
+    <string name="json_int_pages">pages</string>
+    <string name="charset_utf_8">utf-8</string>
+    <string name="json_array_results">results</string>
+    <string name="piece_of_news_id">id</string>
+    <string name="piece_of_news_web_title">webTitle</string>
+    <string name="piece_of_news_web_url">webUrl</string>
+    <string name="piece_of_news_web_publication_date">webPublicationDate</string>
+    <string name="piece_of_news_section_name">sectionName</string>
+    <string name="piece_of_news_section_id">sectionId</string>
+    <string name="piece_of_news_first_name">firstName</string>
+    <string name="piece_of_news_last_name">lastName</string>
+    <string name="piece_of_news_tags">tags</string>
 </resources>

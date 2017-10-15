@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.newsapp.NewsApp">
 
+    <item
+        android:id="@+id/menu_refresh"
+        android:title="@string/menu_refresh"
+        app:showAsAction="never" />
+
     <!-- Settings, should always be in the overflow -->
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/ic_tune"
         android:orderInCategory="1"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_tune"
         app:showAsAction="ifRoom" />
 
 

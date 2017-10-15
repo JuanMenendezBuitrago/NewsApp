@@ -66,9 +66,9 @@ public class NewsAdapter extends ArrayAdapter<PieceOfNews> {
         try {
             date = df.format(currentPieceOfNews.getDate());
         } catch (ParseException e) {
-            date = "parse error";
+            date = QueryUtils.getStringResource(R.string.JSON_parse_error);
         }
-        pieceOfNewsData.setText(date  + "\nin " + currentPieceOfNews.getSection());
+        pieceOfNewsData.setText(currentPieceOfNews.getAuthor() + "\n" + date  + "\n" + QueryUtils.getStringResource(R.string.date_section_connector) + " " + currentPieceOfNews.getSection());
 
         return convertView;
     }
